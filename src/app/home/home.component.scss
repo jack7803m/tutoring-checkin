@@ -1,0 +1,59 @@
+.button {
+  background-color: #ffffff;
+  border: none;
+  padding: 8px;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 4px 2px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.25s; /* Safari */
+  transition-duration: 0.25s;
+  border-radius: 6px;
+}
+
+.button-shadow {
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.primary {
+    background-color: #03539E;
+    color: white;
+}
+
+.primary:hover {
+    background-color: #1676D0;
+    color: white;
+}
+
+.secondary {
+    background-color: #818181;
+    color: white;
+}
+
+.secondary:hover {
+    background-color: #525252;
+    color: white;
+}
+
+.container {
+    max-height: 190px;
+    overflow-y: hidden;
+    transition: max-height 0.5s ease-in-out;
+}
+
+.showJoinContainer {
+    max-height: 250px;
+}
+
+.joinInput {
+    transform: translateY(-60px);
+    transition: transform 0.5s ease-in-out;
+}
+
+.showJoinInput {
+    transform: translateY(0);
+}
