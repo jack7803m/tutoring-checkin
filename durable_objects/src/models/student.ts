@@ -1,7 +1,7 @@
 export class Student {
     id: string;
     name: string;
-    token: string;
+    token?: string;
     time: number;
 
     constructor(name: string) {

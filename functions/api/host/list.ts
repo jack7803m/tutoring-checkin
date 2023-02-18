@@ -15,5 +15,17 @@ export async function onRequestGet(context: any): Promise<Response> {
         return new Response("Error listing room", { status: 400 });
     }
 
-    return new Response(await resp.text());
+    let outData: DORequest;
+    try {
+        outData = await resp.json();
+    } catch (e) {
+        return new Response("No Data Returned", { status: 400 });
+    }
+
+    // remove each student's token from the response
+    outData.students?.forEach((student) => {
+        delete student.token;
+    });
+
+    return new Response(JSON.stringify(outData));
 }
