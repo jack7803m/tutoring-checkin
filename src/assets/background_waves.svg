@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg class="transition duration-300 ease-in-out delay-150" viewBox="0 0 1440 590" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="a" x1="50%" x2="50%" y2="100%">
+<stop stop-color="#336fa2" offset=".05"/>
+<stop stop-color="#ffcc72" offset=".95"/>
+</linearGradient>
+</defs>
+<path class="transition-all duration-300 ease-in-out delay-150 path-0" d="m0 600v-480c42.395-2.2443 84.79-4.4886 146-1s141.24 12.71 204 21 108.27 15.648 172 19c63.733 3.3516 145.7 2.6964 215 2s125.95-1.4341 181-19c55.053-17.566 108.51-51.96 165-50s116 40.274 176 51 120.5-6.1372 181-23v480z" fill="url(#a)" fill-opacity=".265" stroke-width="0"/>
+<defs></defs>
+<path class="transition-all duration-300 ease-in-out delay-150 path-1" d="m0 600v-360c40.778 1.8525 81.556 3.7051 148-10s158.55-42.968 226-35 110.23 53.166 160 55 106.52-39.696 166-45 121.7 25.62 185 45c63.304 19.38 127.7 27.218 198 18s146.52-35.491 207-43 105.24 3.7454 150 15v360z" fill="url(#a)" fill-opacity=".4" stroke-width="0"/>
+<defs></defs>
+<path class="transition-all duration-300 ease-in-out delay-150 path-2" d="m0 600v-240c55.607 20.084 111.21 40.169 178 40s144.75-20.591 203-38 96.791-31.803 154-21 133.09 46.804 199 40 121.85-56.411 181-56 121.5 50.841 180 53 113.14-43.955 170-55 115.93 12.977 175 37v240z" fill="url(#a)" fill-opacity=".53" stroke-width="0"/>
+<defs></defs>
+<path class="transition-all duration-300 ease-in-out delay-150 path-3" d="m0 600v-120c62.561-26.073 125.12-52.145 183-42 57.878 10.145 111.07 56.509 178 69 66.927 12.491 147.58-8.8906 206-22 58.416-13.109 94.589-17.946 141-15s103.06 13.676 163 4 123.18-39.759 192-36 143.24 41.36 207 54 116.88 0.32014 170-12v120z" fill="url(#a)" stroke-width="0"/>
+</svg>
