@@ -23,7 +23,9 @@ export class SessionService {
     this.loadService.startLoading();
     this.http.post('/api/host/create', {}).subscribe({
       next: (res: any) => {
+        console.log(res);
         let data = res.data as { roomid: string, roomtoken: string };
+        console.log(data);
         this.roomId$.next(data.roomid);
         this.roomToken$.next(data.roomtoken);
         this.loadService.stopLoading();
