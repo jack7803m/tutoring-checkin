@@ -23,4 +23,10 @@ export class LoadingService {
       this.loading$.next(false);
     }, this.delay);
   }
+
+  navigateTo(path: string) {
+    setTimeout(() => {
+      this.router.navigate([path]);
+    }, environment.loadingFadeDelay)
+  }
 }

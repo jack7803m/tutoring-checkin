@@ -1,0 +1,52 @@
+.gridlayout {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 2fr;
+  grid-template-areas:
+    "header ."
+    "list code";
+}
+
+.scrollable-content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow: hidden auto;
+}
+
+.destruct-button {
+    color: #f89c6e
+}
+
+.destruct-button:hover {
+    color: #f87060
+}
+
+.qrcode {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #878282;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 14px;
+}
+
+*::-webkit-scrollbar-track {
+//   background: #ffffff;
+  border: 1px solid #878282;
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #878282;
+  border-radius: 5px;
+}

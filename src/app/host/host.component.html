@@ -1,28 +1,85 @@
-<div class="p-4 flex flex-col w-full h-full">
-  <!-- back button, room code, qr code -->
-  <div class="w-full flex justify-center">
-    <div (click)="back()" class="">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-6 h-6"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M12 9.75L14.25 12m0 0l2.25 2.25M14.25 12l2.25-2.25M14.25 12L12 14.25m-2.58 4.92l-6.375-6.375a1.125 1.125 0 010-1.59L9.42 4.83c.211-.211.498-.33.796-.33H19.5a2.25 2.25 0 012.25 2.25v10.5a2.25 2.25 0 01-2.25 2.25h-9.284c-.298 0-.585-.119-.796-.33z"
-        />
-      </svg>
+<div class="h-full flex justify-center items-center">
+  <div class="flex bg-slate-200 rounded-lg p-8 space-x-14">
+    <div
+      *ngIf="
+        (students$ | async) === undefined || (students$ | async)!.length < 1
+      "
+      class="font-bold h-full relative align-middle"
+    >
+      Waiting for students to join...
     </div>
-    <div class="flex-1 text-center">
-      <h3>{{ roomId$ | async }}</h3>
+    <div
+      *ngIf="
+        (students$ | async) !== undefined && (students$ | async)!.length > 0
+      "
+    >
+      " class="flex flex-col relative" style="min-width: 350px">
+      <ol class="border-4 rounded-sm scrollable-content">
+        <li
+          class="font-bold text-xl border-x-2 border-b-2 p-1 border-black"
+          [ngClass]="i === 0 ? 'border-t-2' : ''"
+          *ngFor="let student of students$ | async; let i = index"
+        >
+          <div class="flex w-full justify-between">
+            <div class="overflow-x-hidden">{{ i + 1 }}</div>
+            <div class="overflow-x-hidden text-center">{{ student.name }}</div>
+            <div class="overflow-x-hidden align-middle">
+              <svg
+                (click)="removeStudent(student.id)"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="w-8 h-8 destruct-button cursor-pointer"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </div>
+        </li>
+      </ol>
     </div>
-    <div class="flex-1 text-right">
-      <qrcode [qrdata]="roomUrl" [width]="100" [errorCorrectionLevel]="'Q'"></qrcode>
+    <!-- code - room code and qr -->
+    <div class="flex flex-col">
+      <div class="flex">
+        <div class="items-center">
+          <div class="mb-12">
+            <!-- back button -->
+            <div class="inline-block mr-8 align-middle destruct-button">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                (click)="back()"
+                class="w-16 h-16 cursor-pointer"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M2.515 10.674a1.875 1.875 0 000 2.652L8.89 19.7c.352.351.829.549 1.326.549H19.5a3 3 0 003-3V6.75a3 3 0 00-3-3h-9.284c-.497 0-.974.198-1.326.55l-6.375 6.374zM12.53 9.22a.75.75 0 10-1.06 1.06L13.19 12l-1.72 1.72a.75.75 0 101.06 1.06l1.72-1.72 1.72 1.72a.75.75 0 101.06-1.06L15.31 12l1.72-1.72a.75.75 0 10-1.06-1.06l-1.72 1.72-1.72-1.72z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <!-- room code -->
+            <h1 class="text-7xl font-extrabold align-middle inline-block">
+              {{ (roomId$ | async) || "ZMCCI1" }}
+            </h1>
+          </div>
+
+          <!-- qr code -->
+          <div class="mx-auto qrcode" style="width: 384px">
+            <qrcode
+              [elementType]="'svg'"
+              [qrdata]="roomUrl"
+              [width]="384"
+              [errorCorrectionLevel]="'Q'"
+            ></qrcode>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <!-- queue of students -->
 </div>

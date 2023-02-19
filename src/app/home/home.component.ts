@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { LoadingService } from '../_services/loading.service';
 import { SessionService } from '../_services/session.service';
 
 @Component({
@@ -11,7 +10,7 @@ import { SessionService } from '../_services/session.service';
 export class HomeComponent implements OnInit {
   showJoin: boolean = false;
 
-  constructor(private session: SessionService, private router: Router) { }
+  constructor(private session: SessionService, private load: LoadingService) { }
 
   ngOnInit(): void {
   }
@@ -30,10 +29,6 @@ export class HomeComponent implements OnInit {
   host() {
     // create the room 
     this.session.createRoom();
-    // wait for loading spinner fadein
-    setTimeout(() => {
-      // navigate to the host page
-      this.router.navigate(['/host']);
-    }, environment.loadingFadeDelay);
+    this.load.navigateTo('/host');
   }
 }

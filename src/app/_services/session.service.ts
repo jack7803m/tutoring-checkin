@@ -118,6 +118,10 @@ export class SessionService {
     this.http.get('/api/client/students', { params: { roomid: roomid } }).subscribe({
       next: (res: any) => {
         let data = res.data as DORequest;
+        // sort students by time
+        data.students?.sort((a, b) => {
+          return a.time - b.time;
+        });
         this.students$.next(data.students);
       },
       error: (err) => {
