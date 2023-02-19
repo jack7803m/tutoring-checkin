@@ -1,10 +1,9 @@
 .main-background {
-    background-color: #0e141b;
-    background-image: url("/assets/background_waves.svg");
-    background-position: bottom;
+    background-color: #dedede;
+    background-image: url("/assets/erau-eagle.svg"), url("/assets/background_waves.svg");
+    background-position: top center, bottom;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: auto 28%, cover;
     opacity: 1;
     position: fixed;
-    bottom: 0px;
 }

@@ -10,13 +10,33 @@
   font-weight: 700;
   margin: 4px 2px;
   cursor: pointer;
-  -webkit-transition-duration: 0.25s; /* Safari */
   transition-duration: 0.25s;
-  border-radius: 6px;
+  border-radius: 4px;
+  transition: transform 0.1s;
+  transform: translateY(-5px);
+}
+
+.button:hover {
+    transform: translateY(-3px);
+}
+
+.button-secondary {
+    background-color: #5f5f5f;
+    color: white;
+    padding: 8px;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 4px 2px;
+    cursor: default;
+    border-radius: 4px;
 }
 
 .button-shadow {
-  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+//   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .primary {
@@ -25,33 +45,44 @@
 }
 
 .primary:hover {
-    background-color: #1676D0;
+    background-color: #004483;
     color: white;
 }
 
+.primary-secondary {
+    background-color: #003262;
+    color: #003262;
+}
+
 .secondary {
-    background-color: #818181;
+    background-color: #585858;
     color: white;
 }
 
 .secondary:hover {
     background-color: #525252;
     color: white;
+
+}
+
+.secondary-secondary {
+    background-color: #434343;
+    color: #434343;
 }
 
 .container {
-    max-height: 190px;
+    max-height: 240px;
     overflow-y: hidden;
-    transition: max-height 0.5s ease-in-out;
+    transition: max-height 0.17s ease-out;
 }
 
 .showJoinContainer {
-    max-height: 250px;
+    max-height: 290px;
 }
 
 .joinInput {
     transform: translateY(-60px);
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.17s ease-out;
 }
 
 .showJoinInput {

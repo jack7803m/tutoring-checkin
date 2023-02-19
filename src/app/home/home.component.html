@@ -1,30 +1,47 @@
 <div class="h-full w-full flex flex-row justify-center items-center">
-  <div
-    class="bg-white p-6 w-96 max-h-full max-w-full h-auto rounded-md container"
-    [ngClass]="showJoin ? 'showJoinContainer' : ''"
-  >
-    <div class="flex flex-col space-y-6">
-      <div class="">
-        <button routerLink="/host" class="button button-shadow secondary">
-          Host
-        </button>
-      </div>
-      <div class="flex flex-col space-y-2">
-        <button
-          (click)="expandJoin()"
-          class="button button-shadow primary z-10 relative"
-        >
-          Join
-        </button>
-        <div class="w-full p-2 pt-0">
-          <!-- TODO: add an input format requirement -->
-          <input
-            type="text"
-            placeholder="Room Code"
-            class="w-full rounded-sm border-2 p-2 border-black z-0 relative joinInput"
-            [ngClass]="showJoin ? 'showJoinInput' : ''"
-            style="text-align: center"
-          />
+  <div class="flex flex-col space-y-4">
+    <!-- ERAU logo -->
+    <div class="flex flex-row justify-center items-center">
+      <img src="assets/erau-logo.png" alt="ERAU logo" class="w-80" />
+    </div>
+    <div
+      class="bg-white p-6 w-96 max-h-full max-w-full h-auto rounded-md container"
+      [ngClass]="showJoin ? 'showJoinContainer' : ''"
+    >
+      <div class="flex flex-col space-y-6">
+        <div class="-mb-4 font-extrabold text-3xl text-center text-gray-800">
+          Tutoring Check-In
+        </div>
+        <div class="relative">
+          <button class="secondary-secondary button-secondary absolute">
+            -
+          </button>
+          <button routerLink="/host" class="button button-shadow secondary">
+            Host
+          </button>
+        </div>
+        <div class="flex flex-col space-y-2 relative">
+          <div>
+            <button class="primary-secondary button-secondary absolute z-10">
+              -
+            </button>
+            <button
+              (click)="expandJoin()"
+              class="button button-shadow primary z-10 relative"
+            >
+              Join
+            </button>
+          </div>
+          <div class="w-full p-2 pt-0">
+            <!-- TODO: add an input format requirement -->
+            <input
+              type="text"
+              placeholder="Room Code"
+              class="w-full rounded-md p-2 border-gray-400 z-0 relative joinInput font-bold"
+              [ngClass]="showJoin ? 'showJoinInput' : ''"
+              style="text-align: center; border-width: 3px"
+            />
+          </div>
         </div>
       </div>
     </div>
