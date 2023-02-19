@@ -14,6 +14,10 @@ export async function onRequestPost(context: any): Promise<Response> {
         return new Response("No Data Provided", { status: 400 });
     }
 
+    if (!inData.studentname || inData.studentname.length < 1 || inData.studentname.length > 32) {
+        return new Response("Invalid name length [1-32]", { status: 400 });
+    }
+
     // get the room object
     let id = env.STUDENTTRACKER.idFromName(roomid);
     let obj = env.STUDENTTRACKER.get(id);
