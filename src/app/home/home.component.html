@@ -16,19 +16,14 @@
           <button class="secondary-secondary button-secondary absolute">
             -
           </button>
-          <button routerLink="/host" class="button button-shadow secondary">
-            Host
-          </button>
+          <button (click)="host()" class="button secondary">Host</button>
         </div>
         <div class="flex flex-col space-y-2 relative">
           <div>
             <button class="primary-secondary button-secondary absolute z-10">
               -
             </button>
-            <button
-              (click)="expandJoin()"
-              class="button button-shadow primary z-10 relative"
-            >
+            <button (click)="expandJoin()" class="button primary z-10 relative">
               Join
             </button>
           </div>

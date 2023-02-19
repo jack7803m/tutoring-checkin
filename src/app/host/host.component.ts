@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { SessionService } from '../_services/session.service';
 
 @Component({
   selector: 'app-host',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HostComponent implements OnInit {
 
-  constructor() { }
+  roomId$?: BehaviorSubject<string | undefined>;
+  roomUrl: string = 'https://tutoring-checkin.pages.dev/';
+
+  constructor(private session: SessionService) { }
 
   ngOnInit(): void {
+    this.roomId$ = this.session.roomId$;
+    this.roomId$.subscribe(roomId => {
+      if (roomId) {
+        this.roomUrl = `https://tutoring-checkin.pages.dev/join/${roomId}`;
+      }
+    });
   }
 
+  back() {
+
+  }
+
+  copyRoomCode() {
+
+  }
 }

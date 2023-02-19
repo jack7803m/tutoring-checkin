@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+import { SessionService } from '../_services/session.service';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   showJoin: boolean = false;
 
-  constructor() { }
+  constructor(private session: SessionService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -20,7 +23,17 @@ export class HomeComponent implements OnInit {
       return;
     }
 
-    // submit the join form
-    
+    // attempt to submit the join form
+
+  }
+
+  host() {
+    // create the room 
+    this.session.createRoom();
+    // wait for loading spinner fadein
+    setTimeout(() => {
+      // navigate to the host page
+      this.router.navigate(['/host']);
+    }, environment.loadingFadeDelay);
   }
 }

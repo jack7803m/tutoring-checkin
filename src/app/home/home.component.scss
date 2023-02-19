@@ -35,10 +35,6 @@
     border-radius: 4px;
 }
 
-.button-shadow {
-//   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
 .primary {
     background-color: #03539E;
     color: white;
@@ -83,8 +79,10 @@
 .joinInput {
     transform: translateY(-60px);
     transition: transform 0.17s ease-out;
+    visibility: hidden;
 }
 
 .showJoinInput {
+    visibility: visible;
     transform: translateY(0);
 }
