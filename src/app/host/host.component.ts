@@ -34,6 +34,11 @@ export class HostComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.roomId$.pipe(skip(1)).subscribe(roomId => {
       if (roomId) {
         this.roomUrl = `https://tutoring-checkin.pages.dev/join/${roomId}`;
+        // every 7.5 seconds (arbitrary, could be a listening websocket but that complicates things significantly. TODO later.), update the list of students in the room
+        this.session.getStudents();
+        this.timer = setInterval(() => {
+          this.session.getStudents();
+        }, 7_500);
         this.load.navigationComplete();
       } else {
         this.toastr.error('Error creating room.', 'Error', { timeOut: 3000 });
@@ -52,12 +57,6 @@ export class HostComponent implements OnInit, OnDestroy {
       // otherwise, create a new room
       this.session.createRoom();
     }
-
-    // every 7.5 seconds (arbitrary, could be a listening websocket but that complicates things significantly. TODO later.), update the list of students in the room
-    this.session.getStudents();
-    this.timer = setInterval(() => {
-      this.session.getStudents();
-    }, 7_500);
   }
 
   ngOnDestroy(): void {
