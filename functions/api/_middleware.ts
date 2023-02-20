@@ -25,7 +25,7 @@ async function roomExists(context: any): Promise<Response> {
     let exists = await resp.text() === "true";
 
     if (!exists) {
-        return new Response("Room does not exist", { status: 400 });
+        return new Response("Room does not exist", { status: 404 });
     }
 
     return next();
