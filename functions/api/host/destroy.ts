@@ -14,7 +14,7 @@ export async function onRequestPost(context: any): Promise<Response> {
         return new Response("No Data Provided", { status: 400 });
     }
 
-   // tell the DO to delete itself
+    // tell the DO to delete itself
     let id = env.STUDENTTRACKER.idFromName(roomid);
     let obj = env.STUDENTTRACKER.get(id);
     let resp = await contactDO(obj, "/destroy", inData);
@@ -23,5 +23,5 @@ export async function onRequestPost(context: any): Promise<Response> {
         return new Response("Error destroying room", { status: 400 });
     }
 
-    return new Response("Room Destroyed");
+    return new Response("", { status: 204, statusText: "No Content" });
 }

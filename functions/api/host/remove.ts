@@ -23,5 +23,5 @@ export async function onRequestPost(context: any): Promise<Response> {
         return new Response("Error removing student", { status: 400 });
     }
 
-    return new Response("Student Removed");
+    return new Response("", { status: 204, statusText: "No Content" });
 }

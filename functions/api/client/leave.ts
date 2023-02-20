@@ -25,5 +25,5 @@ export async function onRequestPost(context: any): Promise<Response> {
         return new Response("Error leaving room", { status: 400 });
     }
 
-    return new Response("Room Left");
+    return new Response("", { status: 204, statusText: "No Content" });
 }
