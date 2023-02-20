@@ -158,7 +158,7 @@ export class SessionService {
     //  if roomid was not passed and is not in the service, return
     if (!roomid) return;
 
-    this.http.get('/api/host/students', { params: { roomid: roomid.toUpperCase() } }).subscribe({
+    this.http.get('/api/host/list', { params: { roomid: roomid.toUpperCase() } }).subscribe({
       next: (res: any) => {
         let data = res as DORequest;
         // sort students by time
