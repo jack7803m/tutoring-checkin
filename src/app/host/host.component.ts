@@ -37,6 +37,10 @@ export class HostComponent implements OnInit, OnDestroy {
         this.load.navigationComplete();
       } else {
         this.toastr.error('Error creating room.', 'Error', { timeOut: 3000 });
+        // clear local storage
+        localStorage.removeItem('hostroomid');
+        localStorage.removeItem('hostroomtoken');
+        localStorage.removeItem('hostroomtime');
         this.load.navigateTo('/');
       }
     }));

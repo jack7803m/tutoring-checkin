@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DORequest } from 'models/d-o-request';
 import { Student } from 'models/student';
-import { BehaviorSubject, ReplaySubject, take } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, skip, take } from 'rxjs';
 import { LoadingService } from './loading.service';
 
 @Injectable({
@@ -20,7 +20,19 @@ export class SessionService {
   constructor(private http: HttpClient, private loadService: LoadingService) { }
 
   rejoinRoomHost(roomid: string, roomtoken: string) {
+    this.roomExists$.pipe(skip(1)).subscribe({
+      next: (val) => {
+        this.roomId$.next(roomid);
+        this.roomToken$.next(roomtoken);
+      }, error: (err) => {
+        // TODO: handle error
+        this.roomId$.next(undefined);
+        this.roomToken$.next(undefined);
+        console.error(err);
+      }
+    });
 
+    this.roomExists(roomid);
   }
 
   createRoom() {
