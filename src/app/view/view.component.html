@@ -1,1 +1,24 @@
-<p>view works!</p>
+<div class="h-full flex justify-center items-center">
+  <div class="flex bg-slate-200 rounded-lg p-8 space-x-14">
+    <div
+      *ngIf="
+        (students$ | async) !== undefined && (students$ | async)!.length > 0
+      "
+      class="flex flex-col relative h-1/2"
+      style="min-width: 350px"
+    >
+      <ol class="border-4 rounded-sm scrollable-content">
+        <li
+          class="font-bold text-xl border-x-2 border-b-2 p-1 border-black"
+          [ngClass]="i === 0 ? 'border-t-2' : ''"
+          *ngFor="let student of students$ | async; let i = index"
+        >
+          <div class="flex w-full justify-between">
+            <div class="overflow-x-hidden">{{ i + 1 }}</div>
+            <div class="overflow-x-hidden text-center">{{ student.name }}</div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>

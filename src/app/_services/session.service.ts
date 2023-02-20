@@ -10,9 +10,9 @@ import { LoadingService } from './loading.service';
 })
 export class SessionService {
 
-  public errorState: boolean = false;
   public roomId$: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
   public students$: BehaviorSubject<Student[] | undefined> = new BehaviorSubject<Student[] | undefined>(undefined);
+  public roomExists$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   private roomToken$: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
   private studentId$: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
   private studentToken$: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
@@ -35,7 +35,8 @@ export class SessionService {
         this.loadService.stopLoading();
       },
       error: (err) => {
-        this.errorState = true;
+        this.roomId$.next(undefined);
+        this.roomToken$.next(undefined);
         this.loadService.stopLoading();
         console.error(err);
       }
@@ -56,7 +57,6 @@ export class SessionService {
         this.loadService.stopLoading();
       },
       error: (err) => {
-        this.errorState = true;
         this.loadService.stopLoading();
         console.error(err);
       }
@@ -71,11 +71,16 @@ export class SessionService {
         let data = res as DORequest;
         this.studentId$.next(data.studentid);
         this.studentToken$.next(data.studenttoken);
+        localStorage.setItem('studentroomid', roomid);
+        localStorage.setItem('studentid', data.studentid ?? '');
+        localStorage.setItem('studenttoken', data.studenttoken ?? '');
         this.loadService.stopLoading();
       },
       error: (err) => {
-        this.errorState = true;
         this.loadService.stopLoading();
+        localStorage.removeItem('studentroomid');
+        localStorage.removeItem('studentid');
+        localStorage.removeItem('studenttoken');
         console.error(err);
       }
     });
@@ -85,14 +90,16 @@ export class SessionService {
     this.loadService.startLoading();
     this.http.get('/api/client/exists', { params: { roomid: roomid } }).subscribe({
       next: (res: any) => {
+        this.roomExists$.next(true);
         this.loadService.stopLoading();
       },
       error: (err) => {
-        this.errorState = true;
+        this.roomExists$.next(false);
         this.loadService.stopLoading();
         console.error(err);
       }
     });
+  }
 
   leaveRoom() {
     if (!this.roomId$.value || !this.studentId$.value || !this.studentToken$.value) return;
@@ -102,10 +109,12 @@ export class SessionService {
       next: (res: any) => {
         this.studentId$.next(undefined);
         this.studentToken$.next(undefined);
+        localStorage.removeItem('studentroomid');
+        localStorage.removeItem('studentid');
+        localStorage.removeItem('studenttoken');
         this.loadService.stopLoading();
       },
       error: (err) => {
-        this.errorState = true;
         this.loadService.stopLoading();
         console.error(err);
       }
@@ -120,9 +129,9 @@ export class SessionService {
     this.http.post('/api/host/remove', { roomtoken: this.roomToken$.value, studentid: studentid }, { params: { roomid: this.roomId$.value } }).subscribe({
       next: (res: any) => {
         this.loadService.stopLoading();
+        this.getStudents();
       },
       error: (err) => {
-        this.errorState = true;
         this.loadService.stopLoading();
         console.error(err);
       }
@@ -147,7 +156,6 @@ export class SessionService {
         this.students$.next(data.students);
       },
       error: (err) => {
-        this.errorState = true;
         console.error(err);
       }
     });

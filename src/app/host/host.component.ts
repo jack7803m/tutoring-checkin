@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Student } from 'models/student';
-import { BehaviorSubject } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { BehaviorSubject, skip } from 'rxjs';
 import { LoadingService } from '../_services/loading.service';
 import { SessionService } from '../_services/session.service';
 
@@ -17,7 +18,7 @@ export class HostComponent implements OnInit, OnDestroy {
   students$?: BehaviorSubject<Student[] | undefined>;
   roomUrl: string = 'https://tutoring-checkin.pages.dev/';
 
-  constructor(private session: SessionService, private load: LoadingService) { }
+  constructor(private session: SessionService, private load: LoadingService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.load.startLoadingScreen();
@@ -26,6 +27,19 @@ export class HostComponent implements OnInit, OnDestroy {
     const roomid = localStorage.getItem('hostroomid');
     const roomtoken = localStorage.getItem('hostroomtoken');
     const roomtime = localStorage.getItem('hostroomtime');
+
+    this.roomId$ = this.session.roomId$;
+    this.students$ = this.session.students$;
+
+    this.subscriptions.push(this.roomId$.pipe(skip(1)).subscribe(roomId => {
+      if (roomId) {
+        this.roomUrl = `https://tutoring-checkin.pages.dev/join/${roomId}`;
+        this.load.navigationComplete();
+      } else {
+        this.toastr.error('Error creating room.', 'Error', { timeOut: 3000 });
+        this.load.navigateTo('/');
+      }
+    }));
 
     // if the data was stored and the room is still alive, rejoin the room
     if (roomid && roomtoken && roomtime && Date.now() - Number(roomtime) < 1000 * 60 * 60 * 24) {
@@ -36,20 +50,10 @@ export class HostComponent implements OnInit, OnDestroy {
     }
 
     // every 7.5 seconds (arbitrary, could be a listening websocket but that complicates things significantly. TODO later.), update the list of students in the room
+    this.session.getStudents();
     this.timer = setInterval(() => {
       this.session.getStudents();
     }, 7_500);
-
-    this.roomId$ = this.session.roomId$;
-    this.students$ = this.session.students$;
-
-    this.subscriptions.push(this.roomId$.subscribe(roomId => {
-      if (roomId) {
-        this.roomUrl = `https://tutoring-checkin.pages.dev/join/${roomId}`;
-        this.load.navigationComplete();
-      }
-    }));
-
   }
 
   ngOnDestroy(): void {

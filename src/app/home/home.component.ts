@@ -12,10 +12,12 @@ import { regexValidator } from '../_shared/regex-validator.directive';
 export class HomeComponent implements OnInit {
   showJoin: boolean = false;
   roomCode: FormControl = new FormControl('', regexValidator(new RegExp('^[a-zA-Z0-9]{6}$')));
+  submitted: boolean = false;
 
   constructor(private session: SessionService, private load: LoadingService) { }
 
   ngOnInit(): void {
+    this.load.navigationComplete();
   }
 
   join() {
@@ -26,6 +28,7 @@ export class HomeComponent implements OnInit {
     }
 
     // attempt to submit the join form
+    this.submitted = true;
     if (this.roomCode.valid) {
       this.load.navigateTo(`/join/${this.roomCode.value}`);
     }

@@ -3,9 +3,21 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { HostComponent } from './host/host.component';
 import { JoinComponent } from './join/join.component';
+import { ViewComponent } from './view/view.component';
 
 const routes: Routes = [
-  { path: 'join/*', component: JoinComponent },
+  {
+    path: 'join',
+    children: [
+      { path: '**', component: JoinComponent }
+    ]
+  },
+  {
+    path: 'view',
+    children: [
+      { path: '**', component: ViewComponent }
+    ]
+  },
   { path: 'host', component: HostComponent },
   { path: '', component: HomeComponent },
   { path: '**', redirectTo: '' },

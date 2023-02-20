@@ -29,19 +29,20 @@
           </div>
           <div class="w-full p-2 pt-0">
             <!-- TODO: add an input format requirement -->
-            <input
-              type="text"
-              #roomCodeInput
-              placeholder="Room Code"
-              class="w-full rounded-md p-2 border-gray-400 z-0 relative joinInput font-bold outline-none"
-              [ngClass]="{
-                'showJoinInput': showJoin,
-                'border-red-500': roomCode.invalid && roomCode.touched
-              }"
-              [formControl]="roomCode"
-              (submit)="join()"
-              style="text-align: center; border-width: 3px"
-            />
+            <form (ngSubmit)="join()">
+              <input
+                type="text"
+                #roomCodeInput
+                placeholder="Room Code"
+                class="w-full rounded-md p-2 border-gray-400 z-0 relative joinInput font-bold outline-none"
+                [ngClass]="{
+                  showJoinInput: showJoin,
+                  'border-red-500': roomCode.invalid && (roomCode.touched || submitted)
+                }"
+                [formControl]="roomCode"
+                style="text-align: center; border-width: 3px"
+              />
+            </form>
           </div>
         </div>
       </div>
