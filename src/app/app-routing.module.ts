@@ -5,9 +5,10 @@ import { HostComponent } from './host/host.component';
 import { JoinComponent } from './join/join.component';
 
 const routes: Routes = [
+  { path: 'join/*', component: JoinComponent },
+  { path: 'host', component: HostComponent },
   { path: '', component: HomeComponent },
-  { path: 'join', component: JoinComponent },
-  { path: 'host', component: HostComponent }
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

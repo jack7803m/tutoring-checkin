@@ -23,7 +23,6 @@ export class LoadingService {
           this.loadingScreenFirstLoad.next(false);
         }
         this._firstLoad = false;
-        console.log(this.loadingScreenFirstLoad.value)
       }
     });
   }

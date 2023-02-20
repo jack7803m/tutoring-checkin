@@ -81,6 +81,19 @@ export class SessionService {
     });
   }
 
+  roomExists(roomid: string) {
+    this.loadService.startLoading();
+    this.http.get('/api/client/exists', { params: { roomid: roomid } }).subscribe({
+      next: (res: any) => {
+        this.loadService.stopLoading();
+      },
+      error: (err) => {
+        this.errorState = true;
+        this.loadService.stopLoading();
+        console.error(err);
+      }
+    });
+
   leaveRoom() {
     if (!this.roomId$.value || !this.studentId$.value || !this.studentToken$.value) return;
 

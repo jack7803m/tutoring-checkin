@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { JoinComponent } from './join/join.component';
 import { HostComponent } from './host/host.component';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
 import { QRCodeModule } from 'angularx-qrcode';
+import { ViewComponent } from './view/view.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -18,13 +20,15 @@ import { QRCodeModule } from 'angularx-qrcode';
     HomeComponent,
     JoinComponent,
     HostComponent,
-    LoadingScreenComponent
+    LoadingScreenComponent,
+    ViewComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    FormsModule,
+    ToastrModule.forRoot(),
+    ReactiveFormsModule,
     HttpClientModule,
     QRCodeModule
   ],

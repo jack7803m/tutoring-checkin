@@ -30,18 +30,10 @@ export class LoadingScreenComponent implements OnInit {
   loading$?: BehaviorSubject<boolean>;
   firstLoad$?: BehaviorSubject<boolean>;
 
-  constructor(private loadService: LoadingService) {
-  }
+  constructor(private loadService: LoadingService) { }
 
   ngOnInit(): void {
     this.loading$ = this.loadService.loadingScreen$;
     this.firstLoad$ = this.loadService.loadingScreenFirstLoad;
-    setTimeout(() => {
-      console.log(this.firstLoad$!.value)
-    }, 2500);
   }
-
-  test() {
-  }
-
 }
