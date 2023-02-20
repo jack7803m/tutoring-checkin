@@ -12,8 +12,9 @@
       *ngIf="
         (students$ | async) !== undefined && (students$ | async)!.length > 0
       "
+      class="flex flex-col relative"
+      style="min-width: 350px"
     >
-      " class="flex flex-col relative" style="min-width: 350px">
       <ol class="border-4 rounded-sm scrollable-content">
         <li
           class="font-bold text-xl border-x-2 border-b-2 p-1 border-black"
@@ -64,8 +65,11 @@
               </svg>
             </div>
             <!-- room code -->
-            <h1 class="text-7xl font-black align-middle inline-block text-center" style="font-family: 'Maven Pro', sans-serif;">
-              {{ (roomId$ | async) || '...' }}
+            <h1
+              class="text-7xl font-black align-middle inline-block text-center"
+              style="font-family: 'Maven Pro', sans-serif"
+            >
+              {{ (roomId$ | async) || "..." }}
             </h1>
           </div>
 
