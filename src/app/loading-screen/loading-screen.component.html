@@ -1,0 +1,8 @@
+<div
+  [@loadingAnimation]="(firstLoad$ | async) ? 'firstload' : ''"
+  class="h-screen w-full fixed top-0 left-0 spinner-background"
+  *ngIf="loading$ | async"
+>
+  <img src="assets/loading.svg" alt="loading" />
+  {{ firstLoad$ | async}}
+</div>

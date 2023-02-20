@@ -9,7 +9,7 @@ import { HostComponent } from './host/host.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoadingComponent } from './loading/loading.component';
+import { LoadingScreenComponent } from './loading-screen/loading-screen.component';
 import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
@@ -18,7 +18,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     HomeComponent,
     JoinComponent,
     HostComponent,
-    LoadingComponent
+    LoadingScreenComponent
   ],
   imports: [
     BrowserModule,

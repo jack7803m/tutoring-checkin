@@ -19,15 +19,19 @@ export class SessionService {
 
   constructor(private http: HttpClient, private loadService: LoadingService) { }
 
+  rejoinRoomHost(roomid: string, roomtoken: string) {
+
+  }
+
   createRoom() {
     this.loadService.startLoading();
     this.http.post('/api/host/create', {}).subscribe({
       next: (res: any) => {
-        console.log(res);
-        let data = res.data as { roomid: string, roomtoken: string };
-        console.log(data);
-        this.roomId$.next(data.roomid);
-        this.roomToken$.next(data.roomtoken);
+        this.roomId$.next(res.roomid);
+        this.roomToken$.next(res.roomtoken);
+        localStorage.setItem('hostroomid', res.roomid);
+        localStorage.setItem('hostroomtoken', res.roomtoken);
+        localStorage.setItem('hostroomtime', Date.now().toString());
         this.loadService.stopLoading();
       },
       error: (err) => {
@@ -46,6 +50,9 @@ export class SessionService {
       next: (res: any) => {
         this.roomId$.next(undefined);
         this.roomToken$.next(undefined);
+        localStorage.removeItem('hostroomid');
+        localStorage.removeItem('hostroomtoken');
+        localStorage.removeItem('hostroomtime');
         this.loadService.stopLoading();
       },
       error: (err) => {
@@ -61,7 +68,7 @@ export class SessionService {
     this.roomId$.next(roomid);
     this.http.post('/api/client/join', { studentname: name }, { params: { roomid: roomid } }).subscribe({
       next: (res: any) => {
-        let data = res.data as DORequest;
+        let data = res as DORequest;
         this.studentId$.next(data.studentid);
         this.studentToken$.next(data.studenttoken);
         this.loadService.stopLoading();
@@ -119,7 +126,7 @@ export class SessionService {
 
     this.http.get('/api/client/students', { params: { roomid: roomid } }).subscribe({
       next: (res: any) => {
-        let data = res.data as DORequest;
+        let data = res as DORequest;
         // sort students by time
         data.students?.sort((a, b) => {
           return a.time - b.time;
