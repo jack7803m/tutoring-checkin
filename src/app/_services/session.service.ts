@@ -78,7 +78,7 @@ export class SessionService {
   joinRoom(name: string, roomid: string) {
     this.loadService.startLoading();
     this.roomId$.next(roomid);
-    this.http.post('/api/client/join', { studentname: name }, { params: { roomid: roomid } }).subscribe({
+    this.http.post('/api/client/join', { studentname: name }, { params: { roomid: roomid.toUpperCase() } }).subscribe({
       next: (res: any) => {
         let data = res as DORequest;
         this.studentId$.next(data.studentid);
@@ -100,7 +100,7 @@ export class SessionService {
 
   roomExists(roomid: string) {
     this.loadService.startLoading();
-    this.http.get('/api/client/exists', { params: { roomid: roomid } }).subscribe({
+    this.http.get('/api/client/exists', { params: { roomid: roomid.toUpperCase() } }).subscribe({
       next: (res: any) => {
         this.roomExists$.next(true);
         this.loadService.stopLoading();
@@ -117,7 +117,7 @@ export class SessionService {
     if (!this.roomId$.value || !this.studentId$.value || !this.studentToken$.value) return;
 
     this.loadService.startLoading();
-    this.http.post('/api/client/leave', { studenttoken: this.studentToken$.value, studentid: this.studentId$.value }, { params: { roomid: this.roomId$.value } }).subscribe({
+    this.http.post('/api/client/leave', { studenttoken: this.studentToken$.value, studentid: this.studentId$.value }, { params: { roomid: this.roomId$.value.toUpperCase() } }).subscribe({
       next: (res: any) => {
         this.studentId$.next(undefined);
         this.studentToken$.next(undefined);
@@ -138,7 +138,7 @@ export class SessionService {
     if (!this.roomId$.value || !this.roomToken$.value) return;
 
     this.loadService.startLoading();
-    this.http.post('/api/host/remove', { roomtoken: this.roomToken$.value, studentid: studentid }, { params: { roomid: this.roomId$.value } }).subscribe({
+    this.http.post('/api/host/remove', { roomtoken: this.roomToken$.value, studentid: studentid }, { params: { roomid: this.roomId$.value.toUpperCase() } }).subscribe({
       next: (res: any) => {
         this.loadService.stopLoading();
         this.getStudents();
@@ -158,7 +158,7 @@ export class SessionService {
     //  if roomid was not passed and is not in the service, return
     if (!roomid) return;
 
-    this.http.get('/api/client/students', { params: { roomid: roomid } }).subscribe({
+    this.http.get('/api/host/students', { params: { roomid: roomid.toUpperCase() } }).subscribe({
       next: (res: any) => {
         let data = res as DORequest;
         // sort students by time

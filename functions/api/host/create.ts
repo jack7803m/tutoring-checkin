@@ -7,7 +7,7 @@ export async function onRequestPost(context: any): Promise<Response> {
     const url = new URL(request.url);
     let roomid: string;
     do {
-        roomid = Math.random().toString(36).substring(2, 8).toUpperCase();
+        roomid = Math.random().toString(36).substring(2, 8).toUpperCase().replace('O', '0').replace('I', '1');
     } while (await roomExists(request, env))
 
     // get the (new) room object

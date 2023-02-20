@@ -46,7 +46,7 @@ export class JoinComponent implements OnInit, OnDestroy {
   join() {
     this.submitted = true;
     if (this.studentname.valid) {
-      this.session.joinRoom(this.roomid, this.studentname.value);
+      this.session.joinRoom(this.studentname.value, this.roomid);
       this.load.navigateTo(`/view/${this.roomid}`);
     }
   }
